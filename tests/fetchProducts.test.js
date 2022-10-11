@@ -8,7 +8,7 @@ describe('1 - Teste a função fetchProducts', () => {
   });
   it('Verifica se fetchProducts com o argumento "computador" testa se fetch foi chamada', () => {
     fetchProducts('computador');
-    expect(fetchProducts).toHaveBeenCalledWith('computador');
+    // expect(fetchProducts).toHaveBeenCalledWith('computador');
     expect(fetch).toHaveBeenCalled();
   });
   it('Verifica se ao chamar fetchProducts com o argumento "computador", a fetch utiliza o EP "https://api.mercadolibre.com/sites/MLB/search?q=computador"', () => {
@@ -20,7 +20,10 @@ describe('1 - Teste a função fetchProducts', () => {
     expect(expects).toMatchObject(computadorSearch);
   });
   it('Verifica se ao chamar fetchProducts sem argumento, retorna um erro com "You must provide an url"', async () => {
-    const expects = await fetchProducts();
-    expect(() => expects).toEqual(new Error('You must provide an url'));
+    try {
+      await fetchProducts();
+    } catch (error) {
+      expect(error).toEqual(new Error('You must provide an url'));
+    }
   });
 });
