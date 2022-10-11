@@ -72,4 +72,20 @@ const createCartItemElement = ({ id, title, price }) => {
   return li;
 };
 
-window.onload = () => { };
+// funções criadas por mim
+// Pegando classes do index
+const items = document.querySelector('.items');
+console.log(items);
+
+const productsFetch = async (parametro) => {
+  const returned = await fetchProducts(parametro);
+  const { results } = returned;
+  results.forEach((element) => {
+    const criacao = createProductItemElement(element);
+    items.appendChild(criacao);
+  });
+};
+
+window.onload = () => { 
+  productsFetch('computador');
+};

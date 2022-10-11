@@ -1,6 +1,7 @@
 require('../mocks/fetchSimulator');
 const { fetchProducts } = require('../helpers/fetchProducts');
 const computadorSearch = require('../mocks/search');
+console.log(computadorSearch);
 
 describe('1 - Teste a função fetchProducts', () => {
   it('Verifica se fetchProdutcs é uma função', () => {
