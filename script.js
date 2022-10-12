@@ -1,6 +1,8 @@
 // Esse tipo de comentário que estão antes de todas as funções são chamados de JSdoc,
 // experimente passar o mouse sobre o nome das funções e verá que elas possuem descrições! 
 
+// const { fetchItem } = require("./helpers/fetchItem");
+
 // Fique a vontade para modificar o código já escrito e criar suas próprias funções!
 
 /**
@@ -64,6 +66,9 @@ const getIdFromProductItem = (product) => product.querySelector('span.id').inner
  * @param {string} product.price - Preço do produto.
  * @returns {Element} Elemento de um item do carrinho.
  */
+
+const cartItemClickListener = () => {};
+
 const createCartItemElement = ({ id, title, price }) => {
   const li = document.createElement('li');
   li.className = 'cart__item';
@@ -72,17 +77,29 @@ const createCartItemElement = ({ id, title, price }) => {
   return li;
 };
 
-// funções criadas por mim
 // Pegando classes do index
 const items = document.querySelector('.items');
-console.log(items);
+const cartItems = document.querySelector('.cart__items');
 
+// Trabalhando no requisito 4
+const itemFetch = async (parametro) => {
+  const btnItemAdd = document.querySelectorAll('.item__add');
+  // console.log(btnItemAdd);
+  const returned = await fetchItem(parametro);
+  const criacao = createCartItemElement(returned);
+  (btnItemAdd[btnItemAdd.length - 1]).addEventListener('click', () => {
+    cartItems.appendChild(criacao);
+  });
+};
+
+// Trabalhando no Requisito 2
 const productsFetch = async (parametro) => {
   const returned = await fetchProducts(parametro);
   const { results } = returned;
   results.forEach((element) => {
     const criacao = createProductItemElement(element);
     items.appendChild(criacao);
+    itemFetch(element.id);
   });
 };
 
