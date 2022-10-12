@@ -56,7 +56,7 @@ const createProductItemElement = ({ id, title, thumbnail }) => {
  * @param {Element} product - Elemento do produto.
  * @returns {string} ID do produto.
  */
-// const getIdFromProductItem = (product) => product.querySelector('span.id').innerText;
+const getIdFromProductItem = (product) => product.querySelector('span.id').innerText;
 
 /**
  * Função responsável por criar e retornar um item do carrinho.
@@ -71,8 +71,8 @@ const createProductItemElement = ({ id, title, thumbnail }) => {
 const items = document.querySelector('.items');
 const cartItems = document.querySelector('.cart__items');
 
-const cartItemClickListener = () => {
-  const li = document.querySelector('.cart__item');
+const cartItemClickListener = () => { // Está excluindo o primeiro item da lista
+  const li = document.getElementsByClassName('cart__item').length - 1;
   cartItems.removeChild(li);
 };
 
@@ -84,7 +84,7 @@ const createCartItemElement = ({ id, title, price }) => {
   return li;
 };
 
-// Trabalhando no requisito 4
+// Trabalhando no requisito 4 => Adicionando ao carrinho de compras
 const itemFetch = async (parametro) => {
   const btnItemAdd = document.querySelectorAll('.item__add');
   // console.log(btnItemAdd);
@@ -95,7 +95,7 @@ const itemFetch = async (parametro) => {
   });
 };
 
-// Trabalhando no Requisito 2
+// Trabalhando no Requisito 2 => Listando os produtos
 const productsFetch = async (parametro) => {
   const returned = await fetchProducts(parametro);
   const { results } = returned;
