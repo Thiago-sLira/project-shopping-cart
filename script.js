@@ -67,7 +67,14 @@ const getIdFromProductItem = (product) => product.querySelector('span.id').inner
  * @returns {Element} Elemento de um item do carrinho.
  */
 
-const cartItemClickListener = () => {};
+// Pegando classes do index
+const items = document.querySelector('.items');
+const cartItems = document.querySelector('.cart__items');
+
+const cartItemClickListener = () => {
+  const li = document.querySelector('.cart__item');
+  cartItems.removeChild(li);
+};
 
 const createCartItemElement = ({ id, title, price }) => {
   const li = document.createElement('li');
@@ -76,10 +83,6 @@ const createCartItemElement = ({ id, title, price }) => {
   li.addEventListener('click', cartItemClickListener);
   return li;
 };
-
-// Pegando classes do index
-const items = document.querySelector('.items');
-const cartItems = document.querySelector('.cart__items');
 
 // Trabalhando no requisito 4
 const itemFetch = async (parametro) => {
