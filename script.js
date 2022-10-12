@@ -72,7 +72,7 @@ const items = document.querySelector('.items');
 const cartItems = document.querySelector('.cart__items');
 
 const cartItemClickListener = () => { // Está excluindo o primeiro item da lista
-  const li = document.getElementsByClassName('cart__item').length - 1;
+  const li = document.querySelector('.cart__item');
   cartItems.removeChild(li);
 };
 
