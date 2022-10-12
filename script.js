@@ -56,7 +56,7 @@ const createProductItemElement = ({ id, title, thumbnail }) => {
  * @param {Element} product - Elemento do produto.
  * @returns {string} ID do produto.
  */
-const getIdFromProductItem = (product) => product.querySelector('span.id').innerText;
+// const getIdFromProductItem = (product) => product.querySelector('span.id').innerText;
 
 /**
  * Função responsável por criar e retornar um item do carrinho.
@@ -106,6 +106,15 @@ const productsFetch = async (parametro) => {
   });
 };
 
+const cartEmpty = () => {
+  const emptyCart = document.querySelector('.empty-cart');
+  emptyCart.addEventListener('click', () => {
+    cartItems.innerHTML = '';
+    console.log('Deu bom');
+  });
+};
+
 window.onload = () => { 
   productsFetch('computador');
+  cartEmpty();
 };
