@@ -71,9 +71,11 @@ const createProductItemElement = ({ id, title, thumbnail }) => {
 const items = document.querySelector('.items');
 const cartItems = document.querySelector('.cart__items');
 
-const cartItemClickListener = () => { // Está excluindo o primeiro item da lista
+const cartItemClickListener = (event) => { // Está excluindo o primeiro item da lista
   const li = document.querySelector('.cart__item');
-  cartItems.removeChild(li);
+  // const arroz = event.target;
+  // arroz.cartItems.removeChild(li);
+  event.target.remove(li);
 };
 
 const createCartItemElement = ({ id, title, price }) => {
@@ -95,8 +97,24 @@ const itemFetch = async (parametro) => {
   });
 };
 
+const loading = () => {
+  const charging = document.createElement('h1');
+  charging.innerText = 'carregando...';
+  charging.classList = 'loading';
+  return charging;
+};
+
+// const removeLoading = () => {
+//   const getCharging = document.querySelector('.loading');
+//   return getCharging;
+// };
+
 // Trabalhando no Requisito 2 => Listando os produtos
 const productsFetch = async (parametro) => {
+  // const charging = document.createElement('h1');
+  // charging.innerText = 'carregando...';
+  // charging.classList = 'loading';
+  items.appendChild(loading());
   const returned = await fetchProducts(parametro);
   const { results } = returned;
   results.forEach((element) => {
@@ -104,9 +122,13 @@ const productsFetch = async (parametro) => {
     items.appendChild(criacao);
     itemFetch(element.id);
   });
+  const getCharging = document.querySelector('.loading');
+  items.removeChild(getCharging);
+  // getCharging.innerText = '';
 };
 
-const cartEmpty = () => {
+// Btn esvaziando carrinho
+const cartEmpty = () => { 
   const emptyCart = document.querySelector('.empty-cart');
   emptyCart.addEventListener('click', () => {
     cartItems.innerHTML = '';
