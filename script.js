@@ -56,14 +56,23 @@ const setInfo = () => {
   const textList = cartItems.childNodes;
   const infoItems = [];
   textList.forEach((item) => infoItems.push(item.innerText));
-  console.log(infoItems[0]);
-  saveCartItems(infoItems);
+  saveCartItems(JSON.stringify(infoItems));
+};
+
+const saveTotal = () => {
+  const linhaTotal = document.querySelector('.total-price');
+  let somaTotal = 0;
+  cartItems.childNodes.forEach((itemList) => {
+    somaTotal += Number(itemList.innerText.split('$')[1]);
+  });
+  linhaTotal.innerHTML = `<strong>Valor Total:</strong> $${somaTotal}`;
 };
 
 const cartItemClickListener = (event) => {
   const li = document.querySelector('.cart__item');
   event.target.remove(li);
   setInfo();
+  saveTotal();
 };
 
 const createCartItemElement = ({ id, title, price }) => {
@@ -80,6 +89,7 @@ const addToCart = async (id) => {
   const criacao = createCartItemElement(result);
   cartItems.appendChild(criacao);
   setInfo();
+  saveTotal();
 };
 
 const createCustomElement = (element, className, innerText, id) => {
@@ -130,11 +140,12 @@ const cartEmpty = () => {
   emptyCart.addEventListener('click', () => {
     cartItems.innerHTML = '';
     setInfo();
+    saveTotal();
   });
 };
 
 const getItem = () => {
-  const storageItems = getSavedCartItems() || [];
+  const storageItems = JSON.parse(getSavedCartItems()) || [];
   storageItems.forEach((itemText) => {
     const li = document.createElement('li');
   li.className = 'cart__item';
@@ -148,4 +159,5 @@ window.onload = () => {
   productsFetch('computador');
   cartEmpty();
   getItem();
+  saveTotal();
 };
